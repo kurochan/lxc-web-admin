@@ -1,4 +1,4 @@
-require 'api.rb'
+require './api'
 
 use Rack::Session::Cookie
 run Rack::Cascade.new [API::API]
