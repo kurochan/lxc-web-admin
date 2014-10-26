@@ -1,7 +1,12 @@
 require 'sinatra'
+require 'sinatra/reloader' if development?
 
 class Web < Sinatra::Base
+  configure :development do
+    register Sinatra::Reloader
+  end
+
   get '/' do
-    "Hello world."
+    erb :dashboard
   end
 end
