@@ -2,6 +2,7 @@ require 'grape'
 require File.expand_path('../helper/api_helpers.rb', __FILE__)
 require File.expand_path('../container_api.rb', __FILE__)
 require File.expand_path('../container_status_api.rb', __FILE__)
+require File.expand_path('../container_job_api.rb', __FILE__)
 
 module API
   class API < Grape::API
@@ -13,6 +14,9 @@ module API
       mount ContainerAPI
       resource :status do
         mount ContainerStatusAPI
+      end
+      resource :jobs do
+        mount ContainerJobAPI
       end
     end
   

@@ -1,8 +1,12 @@
 require 'grape'
+require 'simple-worker'
+require File.expand_path('../container_job.rb', __FILE__)
 require File.expand_path('../../container/container.rb', __FILE__)
 
 module API
   class ContainerAPI < Grape::API
+    worker = SimpleWorker::Worker.new
+
     desc 'list'
     get :list do
       {containers: Container.list}
@@ -15,7 +19,9 @@ module API
     get :start do
       exist_check!(params[:name])
       container = Container.new(params[:name])
-      container.start
+      worker.push ContainerJob.new("start container #{params[:name]}") {
+        container.start
+      }
       {msg: "success"}
     end
   
@@ -26,7 +32,9 @@ module API
     get :stop do
       exist_check!(params[:name])
       container = Container.new(params[:name])
-      container.stop
+      worker.push ContainerJob.new("start container #{params[:name]}") {
+        container.stop
+      }
       {msg: "success"}
     end
   
@@ -62,7 +70,9 @@ module API
       not_exist_check!(params[:name])
   
       container = Container.new(params[:template])
-      container.clone(params[:name])
+      worker.push ContainerJob.new("start container #{params[:name]}") {
+        container.clone(params[:name])
+      }
       {msg: "success"}
     end
   
