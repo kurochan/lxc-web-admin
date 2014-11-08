@@ -2,3 +2,4 @@
 *.swp
 Thumbs.db
 .DS_Store
+web/config

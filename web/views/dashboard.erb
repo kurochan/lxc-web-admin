@@ -135,6 +135,34 @@
                         <th>Memory</th>
                         <th></th>
                     </tr>
+                    <% @containers.each do |container| %>
+                    <tr>
+                        <td><span class="label label-success">Running</span></td>
+                        <td><%= container['name'] %></td>
+                        <td><%= container['hostname'] %></td>
+                        <td><%= container['ip_addrs'] %></td>
+                        <td>
+                            <%= container['cpu_usage'] %>%
+                            <div class="progress xs">
+                                <div class="progress-bar progress-bar-success" style="width: 8%"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <%= container['memory_usage'] %>%
+                            <div class="progress xs">
+                                <div class="progress-bar progress-bar-info" style="width: 15%"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-sm">start</button>
+                            <button class="btn btn-primary btn-sm">stop</button>
+                            <button class="btn btn-info btn-sm">freeze</button>
+                            <button class="btn btn-warning btn-sm">unfreeze</button>
+                            <button class="btn btn-defaul btn-sm">clone</button>
+                            <button class="btn btn-danger btn-sm">destroy</button>
+                        </td>
+                    </tr>
+                    <% end %>
                     <tr>
                         <td><span class="label label-success">Running</span></td>
                         <td>test01</td>
